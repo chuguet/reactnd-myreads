@@ -5,6 +5,15 @@ import BookShelf from './BookShelf';
 
 class ListBooks extends Component {
   render() {
+    const currentlyReadingBooks = this.props.books.filter(book => {
+      return book.shelf === 'currentlyReading';
+    });
+    const wantToReadBooks = this.props.books.filter(book => {
+      return book.shelf === 'wantToRead';
+    });
+    const readBooks = this.props.books.filter(book => {
+      return book.shelf === 'read';
+    });
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -12,9 +21,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf/>
-            <BookShelf/>
-            <BookShelf/>
+            <BookShelf bookShelfName={"Currently Reading"} books={currentlyReadingBooks}/>
+            <BookShelf bookShelfName={"Want to Read"} books={wantToReadBooks}/>
+            <BookShelf bookShelfName={"Read"} books={readBooks}/>
           </div>
           <div className="open-search">
             <Link
