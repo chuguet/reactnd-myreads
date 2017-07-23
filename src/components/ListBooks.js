@@ -21,9 +21,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf bookShelfName={"Currently Reading"} books={currentlyReadingBooks}/>
-            <BookShelf bookShelfName={"Want to Read"} books={wantToReadBooks}/>
-            <BookShelf bookShelfName={"Read"} books={readBooks}/>
+            <BookShelf changeShelfBook={this.props.changeShelfBook} bookShelfName={"Currently Reading"} books={currentlyReadingBooks}/>
+            <BookShelf changeShelfBook={this.props.changeShelfBook} bookShelfName={"Want to Read"} books={wantToReadBooks}/>
+            <BookShelf changeShelfBook={this.props.changeShelfBook} bookShelfName={"Read"} books={readBooks}/>
           </div>
           <div className="open-search">
             <Link

@@ -16,10 +16,21 @@ class BooksApp extends Component {
     BooksAPI.getAll()
       .then(books => {
         this.setState({ books })
-        console.log(books)
       })
   }
-
+  changeShelfBook = (bookToChange, newShelf) => {
+    BooksAPI.update(bookToChange, newShelf)
+      .then(data => {
+        this.setState(currentStatus => ({
+          books: currentStatus.books.map(book => {
+            if(bookToChange.id === book.id) {
+              book.shelf = newShelf;
+            }
+            return book;
+          })
+        }));
+      });
+  }
   render() {
     return (
       <div className="app">
@@ -27,7 +38,7 @@ class BooksApp extends Component {
           <SearchBooks books={this.state.books}/>
         )}/>
         <Route path='/' exact render={() => (
-          <ListBooks books={this.state.books}/>
+          <ListBooks changeShelfBook={this.changeShelfBook} books={this.state.books}/>
         )}/>
       </div>
     )
