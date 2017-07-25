@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import BookShelfChanger from './BookShelfChanger';
 
 class Book extends Component {
+  static propTypes = {
+    changeShelfBook: PropTypes.func.isRequired,
+    book: PropTypes.object.isRequired
+  }
   render() {
     const {book} = this.props;
     const authors = book.authors ? book.authors.join(', ') : '';
