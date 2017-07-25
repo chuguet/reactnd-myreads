@@ -12,8 +12,28 @@ class BooksApp extends Component {
   state = {
     books: []
   }
-  setBooks = (books) => {
-    this.setState({ books });
+  listBooks = () => {
+    BooksAPI.getAll()
+      .then(books => {
+        this.setState({ books });
+      })
+  }
+  searchBooks = (query) => {
+    if(query) {
+      BooksAPI.search(query)
+        .then(response => {
+          let books = [];
+          if(Array.isArray(response)) {
+            books = response;
+          }
+          if(Array.isArray(response.books)) {
+            books = response.books;
+          }
+          this.setState({ books });
+        });
+    } else {
+      this.setState({ books: [] });
+    }
   }
   changeShelfBook = (bookToChange, newShelf) => {
     BooksAPI.update(bookToChange, newShelf)
@@ -35,14 +55,14 @@ class BooksApp extends Component {
           <SearchBooks
             changeShelfBook={this.changeShelfBook}
             books={this.state.books}
-            setBooks={this.setBooks}
+            searchBooks={this.searchBooks}
           />
         )}/>
         <Route path='/' exact render={() => (
           <ListBooks
             changeShelfBook={this.changeShelfBook}
             books={this.state.books}
-            setBooks={this.setBooks}
+            listBooks={this.listBooks}
           />
         )}/>
       </div>

@@ -1,34 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
-import * as BooksAPI from './../utils/BooksAPI';
-
 import Book from './Book';
 
 class SearchBooks extends Component {
   state = {
     query: ''
   }
-  componentDidMount () {
-    this.props.setBooks([]);
+  componentDidMount() {
+    this.props.searchBooks(this.state.query);
   }
   updateQuery = (query) => {
-    this.setState({ query: query });
-    if(this.state.query) {
-      BooksAPI.search(this.state.query)
-        .then(response => {
-          let books = [];
-          if(Array.isArray(response)) {
-            books = response;
-          }
-          if(Array.isArray(response.books)) {
-            books = response.books;
-          }
-          this.props.setBooks(books);
-        });
-    } else {
-      this.props.setBooks([]);
-    }
+    this.setState({ query });
+    this.props.searchBooks(query);
   }
   render() {
     return (
@@ -49,8 +33,8 @@ class SearchBooks extends Component {
             */}
             <input
               type="text"
-              placeholder="Search by title or author"
               value={this.state.query}
+              placeholder="Search by title or author"
               onChange={(event) => this.updateQuery(event.target.value)}
             />
 

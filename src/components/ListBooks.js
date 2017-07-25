@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
-import * as BooksAPI from './../utils/BooksAPI';
-
 import BookShelf from './BookShelf';
 
 class ListBooks extends Component {
-  componentWillMount() {
-    BooksAPI.getAll()
-      .then(books => {
-        this.props.setBooks(books);
-      })
+  componentDidMount() {
+    this.props.listBooks();
   }
   render() {
     const currentlyReadingBooks = this.props.books.filter(book => {
