@@ -29,7 +29,9 @@ class BooksApp extends Component {
           if(Array.isArray(response.books)) {
             books = response.books;
           }
-          this.setState({ books });
+          if(this.state.books !== books) {
+            this.setState({ books });
+          }
         });
     } else {
       this.setState({ books: [] });
