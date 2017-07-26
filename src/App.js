@@ -20,19 +20,32 @@ class BooksApp extends Component {
   }
   searchBooks = (query) => {
     if(query) {
-      BooksAPI.search(query)
-        .then(response => {
-          let books = [];
-          if(Array.isArray(response)) {
-            books = response;
-          }
-          if(Array.isArray(response.books)) {
-            books = response.books;
-          }
-          if(this.state.books !== books) {
-            this.setState({ books });
-          }
-        });
+      BooksAPI.getAll()
+        .then(booksAPI => {
+          BooksAPI.search(query)
+            .then(response => {
+              let books = [];
+              if(Array.isArray(response)) {
+                books = response;
+              }
+              if(Array.isArray(response.books)) {
+                books = response.books;
+              }
+              if(books) {
+                books = books.map(book => {
+                  const bookAPI = booksAPI.find(bookAPI => bookAPI.id === book.id);
+                  if(bookAPI) {
+                    return bookAPI;
+                  } else {
+                    return book;
+                  }
+                });
+                if(this.state.books !== books) {
+                  this.setState({ books });
+                }
+              }
+            });
+        })
     } else {
       this.setState({ books: [] });
     }
