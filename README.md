@@ -9,3 +9,12 @@ This app was created for the Udacity React Nanodegree.
 - Run `npm install` in the root directory
 - Run `npm start`
 - Go to `http://localhost:3000` in your browser
+
+## Features
+
+- Shows books by category in three shelves
+- Control to move books into a different category
+
+### create-react-app
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
